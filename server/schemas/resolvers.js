@@ -1,8 +1,16 @@
+// apollo server auth error watch
 const { AuthenticationError } = require('apollo-server-express');
+
+// use each model's category
 const { User, Product, Category, Order } = require('../models');
+
+// use utils/auth for json token
 const { signToken } = require('../utils/auth');
+
+// included for stripe payments
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
+// resolvers
 const resolvers = {
   Query: {
     categories: async () => {
@@ -23,11 +31,15 @@ const resolvers = {
 
       return await Product.find(params).populate('category');
     },
+
     product: async (parent, { _id }) => {
       return await Product.findById(_id).populate('category');
     },
+
     user: async (parent, args, context) => {
       if (context.user) {
+
+        // asynchronus to await user input
         const user = await User.findById(context.user._id).populate({
           path: 'orders.products',
           populate: 'category'
@@ -40,6 +52,7 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
     order: async (parent, { _id }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
@@ -52,12 +65,20 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+    // check func
     checkout: async (parent, args, context) => {
+      // checkout url
       const url = new URL(context.headers.referer).origin;
+
+      // creates order
       const order = new Order({ products: args.products });
+
+      // empty array for items in order
       const line_items = [];
 
+      // populates products
       const { products } = await order.populate('products').execPopulate();
+
 
       for (let i = 0; i < products.length; i++) {
         const product = await stripe.products.create({
@@ -89,6 +110,8 @@ const resolvers = {
       return { session: session.id };
     }
   },
+
+  // add user mutation
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -96,6 +119,8 @@ const resolvers = {
 
       return { token, user };
     },
+
+    // add order mutation
     addOrder: async (parent, { products }, context) => {
       console.log(context);
       if (context.user) {
