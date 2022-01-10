@@ -9,10 +9,22 @@ import { useStoreContext } from '../../utils/GlobalState';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
 import './style.css';
 
+// import use selector from react redux
+import { useDispatch, useSelector } from 'react-redux';
+
+// stripe dec
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
+// cart changes
 const Cart = () => {
-  const [state, dispatch] = useStoreContext();
+
+  // use useDispatch
+  const dispatch = useDispatch;
+
+  // use selector for state
+  const state = useSelector((state) => state);
+
+  // checkout query def
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
   useEffect(() => {
