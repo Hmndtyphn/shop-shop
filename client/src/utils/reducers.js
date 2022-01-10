@@ -1,4 +1,5 @@
-import { useReducer } from "react";
+// no longer needed w/ updated version
+// import { useReducer } from "react";
 import {
   UPDATE_PRODUCTS,
   ADD_TO_CART,
