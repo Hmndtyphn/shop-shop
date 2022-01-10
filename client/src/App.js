@@ -56,6 +56,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
+          {/* using  redux provider to call store state */}
           <Provider store={store}>
             <Nav />
             <Switch>
