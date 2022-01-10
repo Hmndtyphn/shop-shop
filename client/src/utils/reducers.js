@@ -1,5 +1,7 @@
 // no longer needed w/ updated version
 // import { useReducer } from "react";
+
+// import functionality
 import {
   UPDATE_PRODUCTS,
   ADD_TO_CART,
@@ -12,6 +14,7 @@ import {
   TOGGLE_CART
 } from "./actions";
 
+// deleted code
 // include initial state
 const initialState = {
   products: [],
