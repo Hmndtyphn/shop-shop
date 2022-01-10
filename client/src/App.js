@@ -8,6 +8,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+// import pages
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
@@ -18,9 +19,17 @@ import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 
+// impoirt store from utils
+import store from "./utils/store";
+
+// create http link
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: "/graphql",
 });
+
+// const httpLink = createHttpLink({
+//   uri: '/graphql',
+// });
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');

@@ -133,6 +133,8 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
+    // update user
     updateUser: async (parent, args, context) => {
       if (context.user) {
         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
@@ -140,6 +142,8 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
+    // update product
     updateProduct: async (parent, { _id, quantity }) => {
       const decrement = Math.abs(quantity) * -1;
 
