@@ -1,12 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers"
-import { useStoreContext } from "../../utils/GlobalState";
+
+// no longer using
+// import { useStoreContext } from "../../utils/GlobalState";
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
 
+// use dispatch/ state
+import { useDispatch, useSelector } from "react-redux";
+
+
+
+// updated to use state/ use dispatch over global
 function ProductItem(item) {
-  const [state, dispatch] = useStoreContext();
+
+  // use dispatch
+  const dispatch = useDispatch();
+
+  // use state
+  const state = useSelector((state) => state);
 
   const {
     image,
