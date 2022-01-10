@@ -28,12 +28,15 @@ function Detail() {
 
   // use selector for state
   const state = useSelector((state) => state);
-  
+
   const [currentProduct, setCurrentProduct] = useState({});
 
   const { loading, data } = useQuery(QUERY_PRODUCTS);
 
   const { products, cart } = state;
+
+  // use params for id
+  const { id } = useParams();
 
   useEffect(() => {
     // already in global store
