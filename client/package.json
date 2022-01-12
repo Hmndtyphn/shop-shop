@@ -1,8 +1,8 @@
 {
-  "name": "mern-client",
+  "name": "shop-shop",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://blooming-river-92631.herokuapp.com/",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@apollo/client": "^3.3.7",
     "@apollo/react-hooks": "^4.0.0",
